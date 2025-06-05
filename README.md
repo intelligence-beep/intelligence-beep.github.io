@@ -1,1 +1,0 @@
-# intelligence-beep.github.io
