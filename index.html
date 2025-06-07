@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA GeForce - 专业显卡芯片供应商</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode.js@1.0.0/qrcode.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#76b900',
+secondary: '#2C3E50'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  margin: 5% auto;
+  padding: 0;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1),
+              0 0 20px rgba(0, 163, 255, 0.2);
+  animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+@keyframes modalSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #94a3b8;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.close:hover {
+  color: #00a3ff;
+  background: rgba(0, 163, 255, 0.1);
+  transform: rotate(90deg);
+}
+
+/* 产品详情弹窗样式 */
+#productModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#productModal .product-details {
+  padding: 2.5rem;
+}
+
+#productModal .product-details h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#productModal .product-details p {
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+#productModal .product-details ul {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  list-style-type: none;
+}
+
+#productModal .product-details li {
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+#productModal .product-details li:before {
+  content: "•";
+  color: #00a3ff;
+  position: absolute;
+  left: 0;
+}
+
+/* 咨询弹窗样式 */
+#consultModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#consultModal form {
+  padding: 2.5rem;
+}
+
+#consultModal label {
+  color: #e2e8f0;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#consultModal select,
+#consultModal textarea,
+#consultModal input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+#consultModal select:focus,
+#consultModal textarea:focus,
+#consultModal input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #00a3ff;
+  box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.15);
+  outline: none;
+}
+
+#consultModal select option {
+  background: #1e293b;
+  color: #fff;
+  padding: 12px;
+}
+
+#consultModal button[type="submit"] {
+  background: linear-gradient(90deg, #00a3ff 0%, #0066ff 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+#consultModal button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 163, 255, 0.3);
+}
+
+/* 评价弹窗样式 */
+#reviewsModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#reviewsModal .review-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+#reviewsModal .review-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 文章详情弹窗样式 */
+#articleModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#articleModal .article-content {
+  padding: 2.5rem;
+}
+
+#articleModal .article-content h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#articleModal .article-content p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* 博客详情弹窗样式 */
+#blogModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#blogModal .blog-content {
+  padding: 2.5rem;
+}
+
+#blogModal .blog-content h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#blogModal .blog-content p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* 关于我们弹窗样式 */
+#aboutModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#aboutModal .about-content {
+  padding: 2.5rem;
+}
+
+#aboutModal .about-content h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#aboutModal .about-content p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* 购买表单弹窗样式 */
+#purchaseModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#purchaseModal form {
+  padding: 2.5rem;
+}
+
+#purchaseModal label {
+  color: #e2e8f0;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#purchaseModal input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+#purchaseModal input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #00a3ff;
+  box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.15);
+  outline: none;
+}
+
+/* 支付二维码弹窗样式 */
+#paymentModal .modal-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+
+#paymentModal .payment-content {
+  padding: 2.5rem;
+  text-align: center;
+}
+
+#paymentModal .payment-content h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#paymentModal .payment-content p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+#paymentModal .qrcode-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: inline-block;
+  margin: 1.5rem 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#paymentModal .qrcode-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-menu {
+    display: block;
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+</style>
+</head>
+<body class="min-h-[1024px]">
+<nav class="fixed w-full bg-white shadow-md z-50">
+<div class="max-w-[1440px] mx-auto px-8 flex items-center justify-between h-[70px]">
+<div class="flex items-center gap-12">
+<a href="#" class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<i class="fas fa-microchip text-white text-2xl"></i>
+</div>
+<div class="flex flex-col">
+<span class="font-['Pacifico'] text-primary text-2xl leading-tight">NVIDIA</span>
+<span class="font-['Pacifico'] text-gray-600 text-xl leading-tight">GeForce</span>
+</div>
+</a>
+<div class="nav-links flex gap-8 relative group">
+<a href="#" class="text-gray-700 hover:text-primary font-medium">首页</a>
+<a href="#popular-articles" class="text-gray-700 hover:text-primary font-medium">AI 前沿</a>
+<a href="#products" class="text-gray-700 hover:text-primary font-medium">芯片商城</a>
+<a href="#tech-blog" class="text-gray-700 hover:text-primary font-medium">技术博客</a>
+<a href="#contact" class="text-gray-700 hover:text-primary font-medium">关于我们</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<input type="text" placeholder="搜索文章和产品" class="w-[280px] h-[40px] pl-4 pr-10 border border-gray-200 rounded-button text-sm">
+<i class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+<div class="hidden md:flex items-center gap-2 text-primary font-medium">
+<i class="fas fa-phone text-primary"></i>
+<span>销售热线：17315684000</span>
+</div>
+<button class="mobile-menu md:hidden text-2xl text-gray-700" onclick="toggleMobileMenu()">
+<i class="fas fa-bars"></i>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- 移动端菜单 -->
+<div id="mobileMenu" class="fixed inset-0 bg-white z-50 hidden">
+<div class="p-8">
+<div class="flex justify-between items-center mb-8">
+<a href="#" class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<i class="fas fa-microchip text-white text-2xl"></i>
+</div>
+<div class="flex flex-col">
+<span class="font-['Pacifico'] text-primary text-2xl leading-tight">NVIDIA</span>
+<span class="font-['Pacifico'] text-gray-600 text-xl leading-tight">GeForce</span>
+</div>
+</a>
+<button onclick="toggleMobileMenu()" class="text-2xl text-gray-700">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="flex flex-col gap-4">
+<a href="#" class="text-gray-700 hover:text-primary font-medium text-lg">首页</a>
+<a href="#popular-articles" class="text-gray-700 hover:text-primary font-medium text-lg">AI 前沿</a>
+<a href="#products" class="text-gray-700 hover:text-primary font-medium text-lg">芯片商城</a>
+<a href="#tech-blog" class="text-gray-700 hover:text-primary font-medium text-lg">技术博客</a>
+<a href="#contact" class="text-gray-700 hover:text-primary font-medium text-lg">关于我们</a>
+</div>
+<div class="mt-8">
+<div class="relative">
+<input type="text" placeholder="搜索文章和产品" class="w-full h-[40px] pl-4 pr-10 border border-gray-200 rounded-button text-sm">
+<i class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+<div class="flex items-center gap-2 text-primary font-medium mt-4">
+<i class="fas fa-phone text-primary"></i>
+<span>销售热线：17315684000</span>
+</div>
+</div>
+</div>
+</div>
+
+<section class="pt-[70px] relative h-[600px] bg-gradient-to-r from-[#1a1a1a] to-transparent overflow-hidden">
+<div class="absolute inset-0">
+<img src="https://ai-public.mastergo.com/ai/img_res/fe417be1e1ff8057528c30c836ce86bd.jpg" class="w-full h-full object-cover">
+</div>
+<div class="max-w-[1440px] mx-auto px-8 relative z-10 h-full flex items-center">
+<div class="max-w-[600px]">
+<h1 class="text-5xl font-bold text-white mb-6">AI 技术与芯片专家的深度见解</h1>
+<p class="text-xl text-gray-200 mb-8">作为前英伟达架构师，我将为您带来最前沿的 AI 技术解析与优质显卡资源</p>
+<div class="flex gap-4">
+<button onclick="showAboutMore()" class="px-8 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">了解更多</button>
+<button onclick="window.location.href='#products'" class="px-8 py-3 bg-white text-primary font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">浏览商城</button>
+</div>
+</div>
+</div>
+</section>
+<section id="popular-articles" class="py-16 bg-gray-50">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="text-3xl font-bold mb-12 text-center">精选 AI 科普文章</h2>
+<div class="grid grid-cols-3 gap-8">
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow article-card cursor-pointer" data-article-id="pytorch-vs-tensorflow">
+<div class="h-[200px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/ec95a001c6b61b47235d417305aef3ef.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">深度学习框架对比：PyTorch vs TensorFlow</h3>
+<p class="text-gray-600 mb-4">深入分析两大主流深度学习框架的优势与特点，助您选择最适合的开发工具</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">阅读时间：15 分钟</span>
+<i class="fas fa-arrow-right text-primary"></i>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow article-card cursor-pointer" data-article-id="vision-transformer">
+<div class="h-[200px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/72ef1186c139a75f689ef9bb9b3167d9.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">计算机视觉最新突破：视觉 Transformer</h3>
+<p class="text-gray-600 mb-4">解析视觉 Transformer 在图像识别领域的创新应用，探讨其未来发展方向</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">阅读时间：12 分钟</span>
+<i class="fas fa-arrow-right text-primary"></i>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow article-card cursor-pointer" data-article-id="llm-principles">
+<div class="h-[200px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/38c30a33cff6dc197719e1a6ed183de1.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">大语言模型原理解析</h3>
+<p class="text-gray-600 mb-4">深入浅出讲解 GPT 等大语言模型的核心原理，揭秘 AI 对话系统的技术内幕</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">阅读时间：20 分钟</span>
+<i class="fas fa-arrow-right text-primary"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="products" class="py-16">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="text-3xl font-bold mb-12 text-center">精选芯片产品</h2>
+<div class="grid grid-cols-4 gap-8">
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow product-card cursor-pointer" data-product-id="rtx4090">
+<div class="h-[240px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/6ee5d3df71f71d86ae556e2fff102e08.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-bold">NVIDIA RTX 4090</h3>
+<span class="text-primary font-medium">￥12999</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">全新｜24GB GDDR6X｜Ada Lovelace 架构</p>
+<button onclick="event.stopPropagation(); showPurchaseForm('rtx4090')" class="w-full py-2 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">立即购买</button>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow product-card cursor-pointer" data-product-id="rtx4080">
+<div class="h-[240px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/44d5f843e0e406a488a04000aa1133a8.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-bold">NVIDIA RTX 4080</h3>
+<span class="text-primary font-medium">￥9999</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">全新｜16GB GDDR6X｜Ada Lovelace 架构</p>
+<button onclick="event.stopPropagation(); showPurchaseForm('rtx4080')" class="w-full py-2 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">立即购买</button>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow product-card cursor-pointer" data-product-id="rtx3090">
+<div class="h-[240px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/d9ac6b326d496db6a1d458668ce37c5e.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-bold">NVIDIA RTX 3090</h3>
+<span class="text-primary font-medium">￥3999</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">二手｜24GB GDDR6X｜Ampere 架构</p>
+<button onclick="event.stopPropagation(); showPurchaseForm('rtx3090')" class="w-full py-2 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">立即购买</button>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow product-card cursor-pointer" data-product-id="rtx3080">
+<div class="h-[240px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/525d75a9017884418c4f0f268df2554b.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-bold">NVIDIA RTX 3080</h3>
+<span class="text-primary font-medium">￥2199</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">二手｜10GB GDDR6X｜Ampere 架构</p>
+<button onclick="event.stopPropagation(); showPurchaseForm('rtx3080')" class="w-full py-2 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">立即购买</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tech-blog" class="py-16 bg-gray-50">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="text-3xl font-bold mb-12 text-center">技术博客</h2>
+<div class="grid grid-cols-2 gap-8">
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow blog-card cursor-pointer" data-blog-id="ada-lovelace">
+<div class="h-[300px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/df9870a6d3f3e0300cba6de0a3431ea1.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">Ada Lovelace 架构深度解析</h3>
+<p class="text-gray-600 mb-6">详细剖析 NVIDIA 最新 Ada Lovelace 架构的技术创新，探讨其在游戏和 AI 领域的突破性表现</p>
+<div class="text-right">
+<span class="text-sm text-gray-500">2024-10-15</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow blog-card cursor-pointer" data-blog-id="ai-acceleration">
+<div class="h-[300px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/a2ec59495859bad4bf2526c840b19e90.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">AI 加速技术最新进展</h3>
+<p class="text-gray-600 mb-6">探讨 GPU 在 AI 训练和推理中的关键作用，解析最新的加速技术与优化方案</p>
+<div class="text-right">
+<span class="text-sm text-gray-500">2024-10-12</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow blog-card cursor-pointer" data-blog-id="neural-optimization">
+<div class="h-[300px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/83544d3029c1f10409fd47276fb979b2.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">神经网络优化技术详解</h3>
+<p class="text-gray-600 mb-6">深入探讨神经网络模型优化方法，包括量化、剪枝等关键技术的实践经验分享</p>
+<div class="text-right">
+<span class="text-sm text-gray-500">2024-10-10</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow blog-card cursor-pointer" data-blog-id="hardware-acceleration">
+<div class="h-[300px] overflow-hidden">
+<img src="https://ai-public.mastergo.com/ai/img_res/f4d5c572c269e03d537430e24979e0ec.jpg" class="w-full h-full object-cover">
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">机器学习硬件加速方案</h3>
+<p class="text-gray-600 mb-6">全面对比各类 AI 加速硬件的性能特点，为不同场景选择最优解决方案</p>
+<div class="text-right">
+<span class="text-sm text-gray-500">2024-10-08</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-white">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="text-3xl font-bold mb-12 text-center">玩家评价</h2>
+<div class="grid grid-cols-3 gap-8">
+<div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-3xl text-gray-400"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg">匿名用户</h3>
+<p class="text-gray-600">资深游戏玩家</p>
+</div>
+</div>
+<div class="flex text-yellow-400 mb-4">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+</div>
+<p class="text-gray-600 mb-4">"RTX 4090 在《赛博朋克2077》中开启全特效和光追，画面效果简直惊艳！4K分辨率下依然保持120帧以上，游戏体验太流畅了。"</p>
+<div class="text-sm text-gray-500">2024-03-15</div>
+</div>
+<div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-3xl text-gray-400"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg">匿名用户</h3>
+<p class="text-gray-600">电竞爱好者</p>
+</div>
+</div>
+<div class="flex text-yellow-400 mb-4">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+</div>
+<p class="text-gray-600 mb-4">"RTX 4080 在《使命召唤》和《CS2》中表现完美，240Hz刷新率下画面丝滑，延迟极低，对竞技游戏来说简直是神器。"</p>
+<div class="text-sm text-gray-500">2024-03-10</div>
+</div>
+<div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-3xl text-gray-400"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg">匿名用户</h3>
+<p class="text-gray-600">3A游戏玩家</p>
+</div>
+</div>
+<div class="flex text-yellow-400 mb-4">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+</div>
+<p class="text-gray-600 mb-4">"RTX 3090 在《艾尔登法环》和《荒野大镖客2》中表现惊艳，画质全开依然流畅，散热效果也很好，长时间游戏也不会降频。"</p>
+<div class="text-sm text-gray-500">2024-03-05</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<button onclick="showMoreReviews()" class="px-8 py-3 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">查看更多评价</button>
+</div>
+</div>
+</section>
+
+<!-- 更多评价弹窗 -->
+<div id="reviewsModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="p-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">更多玩家评价</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg p-6 shadow-sm">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <i class="fas fa-user text-2xl text-gray-400"></i>
+            </div>
+            <div>
+              <h3 class="font-bold">匿名用户</h3>
+              <p class="text-gray-600 text-sm">游戏主播</p>
+            </div>
+          </div>
+          <div class="flex text-yellow-400 mb-3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 text-sm">"RTX 3080 在直播《永劫无间》时表现稳定，录制4K视频的同时还能保持游戏流畅，对主播来说非常实用。"</p>
+          <div class="text-xs text-gray-500 mt-3">2024-03-01</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-sm">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <i class="fas fa-user text-2xl text-gray-400"></i>
+            </div>
+            <div>
+              <h3 class="font-bold">匿名用户</h3>
+              <p class="text-gray-600 text-sm">VR游戏玩家</p>
+            </div>
+          </div>
+          <div class="flex text-yellow-400 mb-3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 text-sm">"RTX 4090 在《半条命：爱莉克斯》VR游戏中表现完美，高分辨率下依然保持90帧，完全没有眩晕感，VR体验太棒了。"</p>
+          <div class="text-xs text-gray-500 mt-3">2024-02-28</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-sm">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <i class="fas fa-user text-2xl text-gray-400"></i>
+            </div>
+            <div>
+              <h3 class="font-bold">匿名用户</h3>
+              <p class="text-gray-600 text-sm">游戏开发者</p>
+            </div>
+          </div>
+          <div class="flex text-yellow-400 mb-3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 text-sm">"RTX 4080 在游戏开发中表现出色，实时预览效果流畅，光线追踪调试也很方便，大大提升了开发效率。"</p>
+          <div class="text-xs text-gray-500 mt-3">2024-02-25</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-sm">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <i class="fas fa-user text-2xl text-gray-400"></i>
+            </div>
+            <div>
+              <h3 class="font-bold">匿名用户</h3>
+              <p class="text-gray-600 text-sm">游戏爱好者</p>
+            </div>
+          </div>
+          <div class="flex text-yellow-400 mb-3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 text-sm">"RTX 3090 在《死亡搁浅》和《对马岛之魂》中表现惊艳，DLSS 3.0效果太棒了，画质提升明显，帧数也很稳定。"</p>
+          <div class="text-xs text-gray-500 mt-3">2024-02-20</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact" class="py-16">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="text-3xl font-bold mb-12 text-center">联系我们</h2>
+<div class="grid grid-cols-3 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+<i class="fas fa-phone text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">销售热线</h3>
+<p class="text-gray-600">17315684000</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+<i class="fas fa-envelope text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">业务邮箱</h3>
+<p class="text-gray-600">2890633688@qq.com</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+<i class="fas fa-comments text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">在线咨询</h3>
+<button onclick="showConsultModal()" class="px-6 py-2 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90">立即咨询</button>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-gray-900 text-white py-16">
+<div class="max-w-[1440px] mx-auto px-8">
+<div class="grid grid-cols-4 gap-8 mb-12">
+<div>
+<h3 class="text-xl font-bold mb-6">关于我们</h3>
+<p class="text-gray-400">专业的 AI 技术与芯片销售平台，为您提供最优质的产品与服务</p>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">快速链接</h3>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-primary">首页</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">AI 前沿</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">芯片商城</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">技术博客</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">商务合作</h3>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-primary">渠道合作</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">技术支持</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">商务咨询</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary">加入我们</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">订阅更新</h3>
+<div class="relative">
+<input type="email" placeholder="输入邮箱地址" class="w-full h-[40px] pl-4 pr-10 bg-gray-800 border-none !rounded-button text-sm text-white">
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-primary">
+<i class="fas fa-arrow-right"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 flex items-center justify-between">
+<p class="text-gray-400">&copy; 2024 AI 科技与芯片专家. All rights reserved.</p>
+<div class="flex items-center gap-4">
+<a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-weixin text-xl"></i></a>
+<a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-weibo text-xl"></i></a>
+<a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-github text-xl"></i></a>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- 产品详情弹窗 -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="productDetails" class="p-4">
+      <!-- 产品详情将通过 JavaScript 动态填充 -->
+    </div>
+  </div>
+</div>
+
+<!-- 购买表单弹窗 -->
+<div id="purchaseModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="p-4">
+      <h2 class="text-2xl font-bold mb-4">填写购买信息</h2>
+      <form id="purchaseForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">姓名</label>
+          <input type="text" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">电话</label>
+          <input type="tel" name="phone" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">地址</label>
+          <textarea name="address" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"></textarea>
+        </div>
+        <button type="submit" class="w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">确认购买</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 支付二维码弹窗 -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="p-4 text-center">
+      <h2 class="text-2xl font-bold mb-4">请扫码支付</h2>
+      <div class="flex justify-center space-x-8">
+        <div>
+          <h3 class="text-lg font-medium mb-2">微信支付</h3>
+          <div id="wechatQR" class="w-48 h-48 mx-auto"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-medium mb-2">支付宝</h3>
+          <div id="alipayQR" class="w-48 h-48 mx-auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 关于我们弹窗 -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="p-8">
+      <h2 class="text-3xl font-bold mb-6">关于我们</h2>
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold mb-3">专业背景</h3>
+          <p class="text-gray-600">作为前英伟达架构师，我们拥有丰富的GPU架构设计和AI加速经验。团队成员均来自顶尖科技公司，在AI、计算机视觉和深度学习领域有着深厚的专业积累。</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-3">我们的优势</h3>
+          <ul class="list-disc list-inside text-gray-600 space-y-2">
+            <li>专业的GPU架构设计经验</li>
+            <li>丰富的AI加速优化经验</li>
+            <li>完善的售后技术支持</li>
+            <li>正品保证，品质保障</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-3">服务承诺</h3>
+          <ul class="list-disc list-inside text-gray-600 space-y-2">
+            <li>7天无理由退换</li>
+            <li>3年质保服务</li>
+            <li>专业技术支持</li>
+            <li>终身软件更新</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 文章详情弹窗 -->
+<div id="articleModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="articleContent" class="p-8">
+      <!-- 文章内容将通过 JavaScript 动态填充 -->
+    </div>
+  </div>
+</div>
+
+<!-- 博客详情弹窗 -->
+<div id="blogModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="blogContent" class="p-8">
+      <!-- 博客内容将通过 JavaScript 动态填充 -->
+    </div>
+  </div>
+</div>
+
+<!-- 咨询对话框 -->
+<div id="consultModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="p-8">
+      <h2 class="text-2xl font-bold mb-6 text-center">在线咨询</h2>
+      <form id="consultForm" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">您的问题类型</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <option value="">请选择问题类型</option>
+            <option value="product">产品咨询</option>
+            <option value="technical">技术支持</option>
+            <option value="price">价格咨询</option>
+            <option value="other">其他问题</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">您的问题描述</label>
+          <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" rows="4" placeholder="请详细描述您的问题，以便我们更好地为您服务..." required></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">您的联系方式</label>
+          <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="请输入您的手机号码" required>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="px-8 py-3 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">提交咨询</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+// 产品数据
+const products = {
+  'rtx4090': {
+    name: 'NVIDIA RTX 4090',
+    price: 12999,
+    description: '全新｜24GB GDDR6X｜Ada Lovelace 架构',
+    details: `
+      <h2 class="text-2xl font-bold mb-4">NVIDIA RTX 4090</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <img src="https://ai-public.mastergo.com/ai/img_res/6ee5d3df71f71d86ae556e2fff102e08.jpg" class="w-full rounded-lg">
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">产品规格</h3>
+          <ul class="space-y-2">
+            <li>CUDA 核心：16384</li>
+            <li>显存：24GB GDDR6X</li>
+            <li>显存带宽：1008 GB/s</li>
+            <li>基础频率：2.52 GHz</li>
+            <li>加速频率：2.61 GHz</li>
+            <li>功耗：450W</li>
+          </ul>
+          <div class="mt-6">
+            <p class="text-2xl font-bold text-primary">￥12,999</p>
+            <button onclick="showPurchaseForm('rtx4090')" class="mt-4 w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">立即购买</button>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  'rtx4080': {
+    name: 'NVIDIA RTX 4080',
+    price: 9999,
+    description: '全新｜16GB GDDR6X｜Ada Lovelace 架构',
+    details: `
+      <h2 class="text-2xl font-bold mb-4">NVIDIA RTX 4080</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <img src="https://ai-public.mastergo.com/ai/img_res/44d5f843e0e406a488a04000aa1133a8.jpg" class="w-full rounded-lg">
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">产品规格</h3>
+          <ul class="space-y-2">
+            <li>CUDA 核心：9728</li>
+            <li>显存：16GB GDDR6X</li>
+            <li>显存带宽：716.8 GB/s</li>
+            <li>基础频率：2.51 GHz</li>
+            <li>加速频率：2.61 GHz</li>
+            <li>功耗：320W</li>
+          </ul>
+          <div class="mt-6">
+            <p class="text-2xl font-bold text-primary">￥9,999</p>
+            <button onclick="showPurchaseForm('rtx4080')" class="mt-4 w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">立即购买</button>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  'rtx3090': {
+    name: 'NVIDIA RTX 3090',
+    price: 3999,
+    description: '二手｜24GB GDDR6X｜Ampere 架构',
+    details: `
+      <h2 class="text-2xl font-bold mb-4">NVIDIA RTX 3090</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <img src="https://ai-public.mastergo.com/ai/img_res/d9ac6b326d496db6a1d458668ce37c5e.jpg" class="w-full rounded-lg">
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">产品规格</h3>
+          <ul class="space-y-2">
+            <li>CUDA 核心：10496</li>
+            <li>显存：24GB GDDR6X</li>
+            <li>显存带宽：936 GB/s</li>
+            <li>基础频率：1.40 GHz</li>
+            <li>加速频率：1.70 GHz</li>
+            <li>功耗：350W</li>
+          </ul>
+          <div class="mt-6">
+            <p class="text-2xl font-bold text-primary">￥3,999</p>
+            <button onclick="showPurchaseForm('rtx3090')" class="mt-4 w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">立即购买</button>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  'rtx3080': {
+    name: 'NVIDIA RTX 3080',
+    price: 2199,
+    description: '二手｜10GB GDDR6X｜Ampere 架构',
+    details: `
+      <h2 class="text-2xl font-bold mb-4">NVIDIA RTX 3080</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <img src="https://ai-public.mastergo.com/ai/img_res/525d75a9017884418c4f0f268df2554b.jpg" class="w-full rounded-lg">
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">产品规格</h3>
+          <ul class="space-y-2">
+            <li>CUDA 核心：8704</li>
+            <li>显存：10GB GDDR6X</li>
+            <li>显存带宽：760 GB/s</li>
+            <li>基础频率：1.44 GHz</li>
+            <li>加速频率：1.71 GHz</li>
+            <li>功耗：320W</li>
+          </ul>
+          <div class="mt-6">
+            <p class="text-2xl font-bold text-primary">￥2,199</p>
+            <button onclick="showPurchaseForm('rtx3080')" class="mt-4 w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90">立即购买</button>
+          </div>
+        </div>
+      </div>
+    `
+  }
+};
+
+// 显示产品详情
+function showProductDetails(productId) {
+  const modal = document.getElementById('productModal');
+  const details = document.getElementById('productDetails');
+  details.innerHTML = products[productId].details;
+  modal.style.display = 'block';
+}
+
+// 显示购买表单
+function showPurchaseForm(productId) {
+  document.getElementById('productModal').style.display = 'none';
+  const modal = document.getElementById('purchaseModal');
+  modal.style.display = 'block';
+  
+  // 存储当前产品ID
+  modal.dataset.productId = productId;
+}
+
+// 生成支付二维码
+function generatePaymentQR() {
+  const wechatQR = document.getElementById('wechatQR');
+  const alipayQR = document.getElementById('alipayQR');
+  
+  // 生成随机订单号
+  const orderId = 'ORDER' + Date.now();
+  
+  // 生成微信支付二维码
+  new QRCode(wechatQR, {
+    text: `weixin://wxpay/bizpayurl?pr=${orderId}`,
+    width: 192,
+    height: 192
+  });
+  
+  // 生成支付宝二维码
+  new QRCode(alipayQR, {
+    text: `alipays://platformapi/startapp?appId=20000067&url=${encodeURIComponent(`https://example.com/pay/${orderId}`)}`,
+    width: 192,
+    height: 192
+  });
+}
+
+// 关闭弹窗
+document.querySelectorAll('.close').forEach(closeBtn => {
+  closeBtn.onclick = function() {
+    this.closest('.modal').style.display = 'none';
+  }
+});
+
+// 点击弹窗外部关闭
+window.onclick = function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.style.display = 'none';
+  }
+}
+
+// 处理购买表单提交
+document.getElementById('purchaseForm').onsubmit = function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const productId = document.getElementById('purchaseModal').dataset.productId;
+  
+  // 这里可以添加表单验证和数据提交逻辑
+  
+  // 显示支付二维码
+  document.getElementById('purchaseModal').style.display = 'none';
+  document.getElementById('paymentModal').style.display = 'block';
+  generatePaymentQR();
+}
+
+// 为所有产品卡片添加点击事件
+document.querySelectorAll('.product-card').forEach(card => {
+  card.onclick = function() {
+    const productId = this.dataset.productId;
+    showProductDetails(productId);
+  }
+});
+
+// 移动端菜单切换
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+}
+
+// 点击移动端菜单链接时关闭菜单
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.onclick = function() {
+    document.getElementById('mobileMenu').classList.add('hidden');
+  }
+});
+
+// 文章数据
+const articles = {
+  'pytorch-vs-tensorflow': {
+    title: '深度学习框架对比：PyTorch vs TensorFlow',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">深度学习框架对比：PyTorch vs TensorFlow</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">在深度学习领域，PyTorch 和 TensorFlow 是两个最受欢迎的框架。本文将从多个维度深入对比这两个框架的异同。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 编程范式</h3>
+        <p class="mb-4">PyTorch 采用动态计算图（Dynamic Computational Graph），这使得模型构建更加灵活，便于调试和实验。而 TensorFlow 2.0 虽然也支持动态图，但其核心仍然是静态计算图（Static Computational Graph）。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 性能表现</h3>
+        <p class="mb-4">在训练速度方面，两个框架都表现优异，但具体性能取决于使用场景和硬件配置。TensorFlow 在分布式训练方面有优势，而 PyTorch 在单机训练时可能更灵活。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 生态系统</h3>
+        <p class="mb-4">TensorFlow 拥有更成熟的生态系统，特别是在生产环境部署方面。PyTorch 则在研究领域更受欢迎，社区活跃度高。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">4. 学习曲线</h3>
+        <p class="mb-4">PyTorch 的 API 设计更接近 Python 原生编程，学习曲线相对平缓。TensorFlow 的 API 较为复杂，但功能更全面。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">5. 适用场景</h3>
+        <p class="mb-4">PyTorch 适合：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>研究实验和原型开发</li>
+          <li>需要灵活性的项目</li>
+          <li>快速迭代开发</li>
+        </ul>
+        
+        <p class="mb-4">TensorFlow 适合：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>大规模生产环境</li>
+          <li>需要跨平台部署</li>
+          <li>企业级应用</li>
+        </ul>
+      </div>
+    `
+  },
+  'vision-transformer': {
+    title: '计算机视觉最新突破：视觉 Transformer',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">计算机视觉最新突破：视觉 Transformer</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">视觉 Transformer（Vision Transformer，ViT）是近年来计算机视觉领域最重要的突破之一，它将 Transformer 架构成功应用于图像识别任务。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 核心原理</h3>
+        <p class="mb-4">ViT 将输入图像分割成固定大小的图像块（patches），然后将这些图像块线性投影到序列中，最后通过 Transformer 编码器进行处理。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 技术优势</h3>
+        <ul class="list-disc list-inside mb-4">
+          <li>全局建模能力</li>
+          <li>并行计算效率高</li>
+          <li>可扩展性强</li>
+          <li>预训练效果好</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 应用场景</h3>
+        <p class="mb-4">ViT 在多个视觉任务中展现出优异性能：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>图像分类</li>
+          <li>目标检测</li>
+          <li>图像分割</li>
+          <li>视频理解</li>
+        </ul>
+      </div>
+    `
+  },
+  'llm-principles': {
+    title: '大语言模型原理解析',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">大语言模型原理解析</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">大语言模型（Large Language Models，LLMs）如 GPT 系列模型正在改变我们与计算机交互的方式。本文将深入解析其工作原理。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 核心架构</h3>
+        <p class="mb-4">大语言模型基于 Transformer 架构，通过自注意力机制处理序列数据，实现长距离依赖关系的建模。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 训练过程</h3>
+        <ul class="list-disc list-inside mb-4">
+          <li>预训练：在大规模文本数据上学习语言表示</li>
+          <li>微调：在特定任务上进行优化</li>
+          <li>强化学习：通过人类反馈进行优化</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 关键技术</h3>
+        <p class="mb-4">大语言模型涉及多项关键技术：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>注意力机制</li>
+          <li>位置编码</li>
+          <li>掩码机制</li>
+          <li>上下文学习</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
+// 显示关于我们
+function showAboutMore() {
+  const modal = document.getElementById('aboutModal');
+  modal.style.display = 'block';
+}
+
+// 显示文章详情
+function showArticle(articleId) {
+  const modal = document.getElementById('articleModal');
+  const content = document.getElementById('articleContent');
+  content.innerHTML = articles[articleId].content;
+  modal.style.display = 'block';
+}
+
+// 为文章卡片添加点击事件
+document.querySelectorAll('.article-card').forEach(card => {
+  card.onclick = function() {
+    const articleId = this.dataset.articleId;
+    showArticle(articleId);
+  }
+});
+
+// 博客数据
+const blogs = {
+  'ada-lovelace': {
+    title: 'Ada Lovelace 架构深度解析',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">Ada Lovelace 架构深度解析</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">NVIDIA 的 Ada Lovelace 架构代表了 GPU 技术的一次重大飞跃，本文将深入探讨其技术创新和性能提升。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 架构创新</h3>
+        <p class="mb-4">Ada Lovelace 架构引入了多项突破性技术：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>第三代 RT Core：光线追踪性能提升 2 倍</li>
+          <li>第四代 Tensor Core：AI 性能提升 4 倍</li>
+          <li>DLSS 3.0：帧生成技术带来革命性提升</li>
+          <li>着色器执行重排序：提升并行效率</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 性能提升</h3>
+        <p class="mb-4">相比上一代 Ampere 架构，Ada Lovelace 在多个方面实现了显著提升：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>游戏性能提升 2-4 倍</li>
+          <li>光线追踪性能提升 2-3 倍</li>
+          <li>AI 训练性能提升 3-4 倍</li>
+          <li>能效比提升 50%</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 应用场景</h3>
+        <p class="mb-4">Ada Lovelace 架构在多个领域展现出强大实力：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>游戏与实时渲染</li>
+          <li>AI 训练与推理</li>
+          <li>科学计算</li>
+          <li>内容创作</li>
+        </ul>
+      </div>
+    `
+  },
+  'ai-acceleration': {
+    title: 'AI 加速技术最新进展',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">AI 加速技术最新进展</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">随着 AI 技术的快速发展，GPU 加速技术也在不断演进。本文将介绍最新的 AI 加速技术进展。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 硬件加速</h3>
+        <p class="mb-4">新一代 GPU 在 AI 加速方面的主要特点：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>专用 AI 加速单元</li>
+          <li>高带宽显存</li>
+          <li>多精度计算支持</li>
+          <li>动态负载均衡</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 软件优化</h3>
+        <p class="mb-4">软件层面的优化技术：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>自动混合精度训练</li>
+          <li>模型量化与压缩</li>
+          <li>分布式训练优化</li>
+          <li>推理引擎优化</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 应用案例</h3>
+        <p class="mb-4">实际应用中的性能提升：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>大语言模型训练加速</li>
+          <li>计算机视觉应用优化</li>
+          <li>推荐系统性能提升</li>
+          <li>边缘计算应用</li>
+        </ul>
+      </div>
+    `
+  },
+  'neural-optimization': {
+    title: '神经网络优化技术详解',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">神经网络优化技术详解</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">神经网络优化是提升模型性能和效率的关键。本文将详细介绍各种优化技术及其应用。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. 模型量化</h3>
+        <p class="mb-4">量化技术的主要方法：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>INT8 量化</li>
+          <li>混合精度量化</li>
+          <li>动态量化</li>
+          <li>量化感知训练</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 模型剪枝</h3>
+        <p class="mb-4">剪枝技术的应用：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>结构化剪枝</li>
+          <li>非结构化剪枝</li>
+          <li>知识蒸馏</li>
+          <li>稀疏化训练</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 优化实践</h3>
+        <p class="mb-4">实际应用中的优化策略：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>模型压缩</li>
+          <li>推理加速</li>
+          <li>内存优化</li>
+          <li>部署优化</li>
+        </ul>
+      </div>
+    `
+  },
+  'hardware-acceleration': {
+    title: '机器学习硬件加速方案',
+    content: `
+      <h2 class="text-3xl font-bold mb-6">机器学习硬件加速方案</h2>
+      <div class="prose max-w-none">
+        <p class="mb-4">选择合适的硬件加速方案对机器学习项目的成功至关重要。本文将对比分析各种加速方案。</p>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">1. GPU 加速</h3>
+        <p class="mb-4">GPU 加速的优势：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>并行计算能力强</li>
+          <li>生态系统完善</li>
+          <li>通用性好</li>
+          <li>性价比高</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">2. 专用加速器</h3>
+        <p class="mb-4">专用加速器的特点：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>TPU：Google 的专用 AI 加速器</li>
+          <li>NPU：神经网络处理器</li>
+          <li>FPGA：可编程门阵列</li>
+          <li>ASIC：专用集成电路</li>
+        </ul>
+        
+        <h3 class="text-xl font-bold mt-6 mb-4">3. 选择建议</h3>
+        <p class="mb-4">不同场景的硬件选择：</p>
+        <ul class="list-disc list-inside mb-4">
+          <li>训练场景：高性能 GPU</li>
+          <li>推理场景：专用加速器</li>
+          <li>边缘计算：低功耗方案</li>
+          <li>大规模部署：分布式方案</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
+// 显示博客详情
+function showBlog(blogId) {
+  const modal = document.getElementById('blogModal');
+  const content = document.getElementById('blogContent');
+  content.innerHTML = blogs[blogId].content;
+  modal.style.display = 'block';
+}
+
+// 为博客卡片添加点击事件
+document.querySelectorAll('.blog-card').forEach(card => {
+  card.onclick = function() {
+    const blogId = this.dataset.blogId;
+    showBlog(blogId);
+  }
+});
+
+// 显示更多评价
+function showMoreReviews() {
+  const modal = document.getElementById('reviewsModal');
+  modal.style.display = 'block';
+}
+
+// 为评价弹窗添加关闭事件
+document.querySelectorAll('#reviewsModal .close').forEach(closeBtn => {
+  closeBtn.onclick = function() {
+    this.closest('.modal').style.display = 'none';
+  }
+});
+
+// 显示咨询对话框
+function showConsultModal() {
+  const modal = document.getElementById('consultModal');
+  modal.style.display = 'block';
+}
+
+// 处理咨询表单提交
+document.getElementById('consultForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // 获取表单数据
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
+  
+  // 这里可以添加发送数据到服务器的代码
+  alert('感谢您的咨询，我们会尽快与您联系！');
+  
+  // 关闭对话框
+  document.getElementById('consultModal').style.display = 'none';
+  
+  // 重置表单
+  this.reset();
+});
+
+// 为咨询弹窗添加关闭事件
+document.querySelectorAll('#consultModal .close').forEach(closeBtn => {
+  closeBtn.onclick = function() {
+    this.closest('.modal').style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
